@@ -1,5 +1,19 @@
+export type Country = 'tr' | 'eu';
 export type Goal = 'exam' | 'school' | 'self' | 'fun';
-export type Exam = 'lgs' | 'tyt' | 'ayt' | 'kpss' | 'ales' | 'dgs' | 'other';
+export type Exam =
+  // Türkiye
+  | 'lgs'
+  | 'tyt'
+  | 'ayt'
+  | 'kpss'
+  | 'ales'
+  | 'dgs'
+  // Avrupa
+  | 'eu-secondary'
+  | 'eu-matura'
+  | 'ib'
+  | 'sat'
+  | 'other';
 export type Education = 'primary' | 'middle' | 'high' | 'associate' | 'university' | 'graduate';
 export type Feeling = 'love' | 'ok' | 'struggle' | 'fear';
 export type DailyMinutes = 5 | 10 | 20 | 30;
@@ -38,6 +52,7 @@ export type QuizAnswer = {
 };
 
 export type OnboardingAnswers = {
+  country?: Country;
   goal?: Goal;
   exam?: Exam;
   education?: Education;

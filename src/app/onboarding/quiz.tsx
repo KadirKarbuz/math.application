@@ -1,6 +1,7 @@
 import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { OnboardingScreen } from '@/components/onboarding/onboarding-screen';
 import { OptionButton } from '@/components/onboarding/option-button';
@@ -78,13 +79,17 @@ export default function QuizScreen() {
       <ThemedText type="small" themeColor="textSecondary">
         Soru {history.length + 1} / {QUIZ_LENGTH}
       </ThemedText>
-      <View style={[styles.promptCard, { backgroundColor: theme.backgroundElement }]}>
+      <Animated.View
+        key={question.id}
+        entering={FadeIn.duration(300)}
+        style={[styles.promptCard, { backgroundColor: theme.backgroundElement }]}>
         <ThemedText style={styles.prompt}>{question.prompt}</ThemedText>
-      </View>
+      </Animated.View>
       <View style={styles.options}>
         {question.options.map((option, index) => (
           <OptionButton
-            key={option}
+            key={`${question.id}-${option}`}
+            index={index}
             label={option}
             state={optionState(index)}
             disabled={picked !== null}

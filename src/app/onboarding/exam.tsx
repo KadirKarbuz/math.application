@@ -1,29 +1,19 @@
 import { router } from 'expo-router';
 
-import { ChoiceScreen, type Choice } from '@/components/onboarding/choice-screen';
+import { ChoiceScreen } from '@/components/onboarding/choice-screen';
 import { educationOptions } from '@/features/onboarding/education';
-import type { Exam } from '@/features/onboarding/types';
+import { EXAMS_BY_COUNTRY } from '@/features/onboarding/exams';
 import { useOnboarding } from '@/providers/onboarding-provider';
-
-const CHOICES: Choice<Exam>[] = [
-  { value: 'lgs', emoji: '🏫', label: 'LGS', description: 'Liselere geçiş sınavı' },
-  { value: 'tyt', emoji: '📝', label: 'YKS – TYT', description: 'Temel yeterlilik' },
-  { value: 'ayt', emoji: '📐', label: 'YKS – AYT', description: 'Sayısal / eşit ağırlık' },
-  { value: 'kpss', emoji: '🏛️', label: 'KPSS', description: 'Kamu personeli seçme sınavı' },
-  { value: 'ales', emoji: '🎓', label: 'ALES', description: 'Yüksek lisans ve akademik kariyer' },
-  { value: 'dgs', emoji: '🔁', label: 'DGS', description: 'Önlisanstan lisansa geçiş' },
-  { value: 'other', emoji: '✏️', label: 'Başka bir sınav' },
-];
 
 export default function ExamScreen() {
   const { answers, setAnswer } = useOnboarding();
 
   return (
     <ChoiceScreen
-      progress={2 / 6}
+      progress={3 / 7}
       title="Hangi sınava hazırlanıyorsun?"
       subtitle="Sınavın konularına göre öncelik vereceğiz."
-      choices={CHOICES}
+      choices={EXAMS_BY_COUNTRY[answers.country ?? 'tr']}
       selected={answers.exam}
       onSelect={(exam) => {
         setAnswer('exam', exam);

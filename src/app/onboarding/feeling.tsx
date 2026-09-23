@@ -16,7 +16,7 @@ export default function FeelingScreen() {
 
   return (
     <ChoiceScreen
-      progress={4 / 6}
+      progress={5 / 7}
       title="Matematikle aran nasıl?"
       subtitle="Dürüst ol, burada yargılama yok 🙂"
       choices={CHOICES}

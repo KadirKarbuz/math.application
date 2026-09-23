@@ -41,6 +41,10 @@ export const EXAM_LABELS: Record<Exam, string> = {
   kpss: 'KPSS',
   ales: 'ALES',
   dgs: 'DGS',
+  'eu-secondary': 'Ortaokul bitirme sınavı',
+  'eu-matura': 'Lise bitirme sınavı',
+  ib: 'IB Diploma',
+  sat: 'SAT',
   other: 'Sınav',
 };
 
@@ -51,6 +55,10 @@ const EXAM_TARGET: Record<Exam, Level> = {
   kpss: 4,
   ales: 4,
   dgs: 4,
+  'eu-secondary': 3,
+  'eu-matura': 4,
+  ib: 5,
+  sat: 4,
   other: 4,
 };
 

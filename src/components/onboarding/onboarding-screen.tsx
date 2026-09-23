@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { MathBackground } from '@/components/math-background';
 import { ProgressBar } from '@/components/onboarding/progress-bar';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -23,6 +24,7 @@ export function OnboardingScreen({ progress, title, subtitle, children, footer, 
 
   return (
     <ThemedView style={styles.root}>
+      <MathBackground />
       <SafeAreaView style={styles.safeArea}>
         {hasHeader && (
           <View style={styles.header}>

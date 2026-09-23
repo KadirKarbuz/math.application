@@ -1,6 +1,7 @@
 import { Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { MathBackground } from '@/components/math-background';
 import { LevelMeter } from '@/components/onboarding/level-meter';
 import { PrimaryButton } from '@/components/onboarding/primary-button';
 import { ThemedText } from '@/components/themed-text';
@@ -20,6 +21,7 @@ export default function HomeScreen() {
 
   return (
     <ThemedView style={styles.root}>
+      <MathBackground />
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.content}>
           <ThemedText type="subtitle" style={styles.title}>

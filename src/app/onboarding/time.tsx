@@ -16,7 +16,7 @@ export default function TimeScreen() {
 
   return (
     <ChoiceScreen
-      progress={5 / 6}
+      progress={6 / 7}
       title="Günde ne kadar zaman ayırabilirsin?"
       subtitle="Az ama her gün, çok ama ara sıradan daha etkilidir."
       choices={CHOICES}

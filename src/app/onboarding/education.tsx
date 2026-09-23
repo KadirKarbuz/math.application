@@ -10,7 +10,7 @@ export default function EducationScreen() {
 
   return (
     <ChoiceScreen
-      progress={3 / 6}
+      progress={4 / 7}
       title="Şu an hangi aşamadasın?"
       subtitle="Seviye testine doğru yerden başlamamızı sağlar."
       choices={choices}

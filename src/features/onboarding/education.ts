@@ -17,6 +17,8 @@ const GENERIC: Record<Education, EducationOption> = {
 };
 
 const ALL = Object.values(GENERIC);
+// Önlisans is a Turkish-specific level.
+const ALL_EU = ALL.filter((o) => o.value !== 'associate');
 
 const YKS: EducationOption[] = [
   { value: 'high', emoji: '🎒', label: 'Lise öğrencisiyim' },
@@ -50,11 +52,26 @@ export function educationOptions(answers: OnboardingAnswers): EducationOption[] 
         ];
       case 'dgs':
         return [{ value: 'associate', emoji: '🏫', label: 'Önlisans öğrencisi / mezunuyum' }];
-      default:
-        return ALL;
+      case 'eu-secondary':
+        return [
+          { value: 'middle', emoji: '🧑', label: 'Ortaokul öğrencisiyim', description: 'Realschule, GCSE, Collège…' },
+        ];
+      case 'eu-matura':
+        return [
+          { value: 'high', emoji: '🎒', label: 'Lise öğrencisiyim', description: 'Gymnasium, Sixth Form, Lycée…' },
+          { value: 'graduate', emoji: '🔁', label: 'Mezunum, tekrar giriyorum' },
+        ];
+      case 'ib':
+        return [{ value: 'high', emoji: '🎒', label: 'Lise öğrencisiyim', description: 'IB Diploma Programme' }];
+      case 'sat':
+        return [
+          { value: 'high', emoji: '🎒', label: 'Lise öğrencisiyim' },
+          { value: 'graduate', emoji: '🔁', label: 'Lise mezunuyum' },
+        ];
     }
   }
+  const all = answers.country === 'eu' ? ALL_EU : ALL;
   // "Okul derslerime destek" only makes sense while still in school.
-  if (answers.goal === 'school') return ALL.filter((o) => o.value !== 'graduate');
-  return ALL;
+  if (answers.goal === 'school') return all.filter((o) => o.value !== 'graduate');
+  return all;
 }

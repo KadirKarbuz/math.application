@@ -12,7 +12,7 @@ export default function WelcomeScreen() {
 
   return (
     <OnboardingScreen
-      footer={<PrimaryButton title="Başlayalım" onPress={() => router.push('/onboarding/goal')} />}>
+      footer={<PrimaryButton title="Başlayalım" onPress={() => router.push('/onboarding/country')} />}>
       <View style={styles.hero}>
         <View style={[styles.badge, { backgroundColor: theme.primaryBackground }]}>
           <ThemedText style={[styles.symbol, { color: theme.primary }]}>∑</ThemedText>

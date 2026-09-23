@@ -28,9 +28,10 @@ export function ChoiceScreen<T extends string | number>({
 }: Props<T>) {
   return (
     <OnboardingScreen progress={progress} title={title} subtitle={subtitle}>
-      {choices.map((choice) => (
+      {choices.map((choice, index) => (
         <OptionButton
           key={String(choice.value)}
+          index={index}
           label={choice.label}
           description={choice.description}
           emoji={choice.emoji}
