@@ -77,26 +77,29 @@ export function OptionButton({
           ? theme.primaryBackground
           : theme.backgroundElement;
 
+  // Entrance and press/feedback animations both use `transform`, so they live on separate views.
   return (
-    <Animated.View entering={FadeInDown.delay(index * 70).duration(350)} style={animatedStyle}>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityState={{ selected, disabled }}
-        disabled={disabled}
-        onPress={onPress}
-        onPressIn={() => scale.set(withSpring(0.96))}
-        onPressOut={() => scale.set(withSpring(1))}
-        style={[styles.option, { borderColor, backgroundColor }]}>
-        {emoji && <ThemedText style={styles.emoji}>{emoji}</ThemedText>}
-        <View style={styles.texts}>
-          <ThemedText style={styles.label}>{label}</ThemedText>
-          {description && (
-            <ThemedText type="small" themeColor="textSecondary">
-              {description}
-            </ThemedText>
-          )}
-        </View>
-      </Pressable>
+    <Animated.View entering={FadeInDown.delay(index * 70).duration(350)}>
+      <Animated.View style={animatedStyle}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityState={{ selected, disabled }}
+          disabled={disabled}
+          onPress={onPress}
+          onPressIn={() => scale.set(withSpring(0.96))}
+          onPressOut={() => scale.set(withSpring(1))}
+          style={[styles.option, { borderColor, backgroundColor }]}>
+          {emoji && <ThemedText style={styles.emoji}>{emoji}</ThemedText>}
+          <View style={styles.texts}>
+            <ThemedText style={styles.label}>{label}</ThemedText>
+            {description && (
+              <ThemedText type="small" themeColor="textSecondary">
+                {description}
+              </ThemedText>
+            )}
+          </View>
+        </Pressable>
+      </Animated.View>
     </Animated.View>
   );
 }

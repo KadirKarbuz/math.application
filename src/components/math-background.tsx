@@ -45,10 +45,9 @@ const ITEMS: Item[] = [
 export function MathBackground() {
   return (
     <Animated.View
-      pointerEvents="none"
       aria-hidden
       importantForAccessibility="no-hide-descendants"
-      style={StyleSheet.absoluteFill}>
+      style={[StyleSheet.absoluteFill, styles.passThrough]}>
       {ITEMS.map((item, i) => (
         <FloatingSymbol key={item.text} item={item} index={i} />
       ))}
@@ -90,6 +89,9 @@ function FloatingSymbol({ item, index }: { item: Item; index: number }) {
 }
 
 const styles = StyleSheet.create({
+  passThrough: {
+    pointerEvents: 'none',
+  },
   symbol: {
     position: 'absolute',
     fontWeight: 600,

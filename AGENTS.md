@@ -1,5 +1,21 @@
 This is an Expo/React Native mobile application. Prioritize mobile-first patterns, performance, and cross-platform compatibility.
 
+## Proje: Math
+
+Herkes için matematik öğrenme uygulaması. İlk açılışta kullanıcının ülkesi, hedefi/sınavı ve seviyesi ölçülür, ona göre kişisel bir çalışma planı sunulur. Arayüz Türkçe. Geliştiriciler Git ve terminalde yeni; açıklamaları Türkçe ve adım adım yap.
+
+### İş bölümü (çakışmayı önlemek için)
+
+| Alan | Sorumlu | Dosyalar |
+| --- | --- | --- |
+| İlk açılış (ülke, sorular, seviye testi, sonuç/plan) | Mustafa | `src/app/onboarding/`, `src/features/onboarding/`, `src/components/onboarding/` |
+| Eğitim (dersler, pratik, ilerleme) | Kadir | `src/app/(tabs)/` (ana sayfa dahil), `src/features/lessons/`, `src/components/lessons/` |
+| Ortak | İkisi (değiştirmeden önce haber verin) | `src/constants/theme.ts`, `src/providers/`, `src/components/math-background.tsx`, `src/app/_layout.tsx` |
+
+- Sorumlusu olmadığın klasördeki dosyaları değiştirme; gerekiyorsa önce kullanıcıya sor.
+- İki alan arasındaki sözleşme `Profile` tipidir (`src/features/onboarding/types.ts`): ilk açılış bitince `useOnboarding().profile` doldurulur (`answers` + `result`: `currentLevel`, `targetLevel`, `weakTopics`, `strongTopics`). Eğitim kısmı bunu okur; bu tipe alan eklemek serbest, var olan alanları değiştirmek/silmek için önce haber verin.
+- Çalışmaya başlamadan önce `git pull`, bitince `git add . → git commit → git push`.
+
 ## Expo has changed — do not trust your training data
 
 Expo ships breaking changes every SDK release. APIs you remember are likely renamed, moved, or removed. Before writing any code that touches an Expo, EAS, or React Native API:
