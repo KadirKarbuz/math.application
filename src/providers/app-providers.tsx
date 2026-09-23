@@ -3,11 +3,14 @@ import type { ReactNode } from 'react';
 
 import { queryClient } from '@/lib/query-client';
 import { AuthProvider } from '@/providers/auth-provider';
+import { OnboardingProvider } from '@/providers/onboarding-provider';
 
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <OnboardingProvider>{children}</OnboardingProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
