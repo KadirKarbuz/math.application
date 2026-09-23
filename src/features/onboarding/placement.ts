@@ -58,6 +58,7 @@ const EDUCATION_START: Record<Education, Level> = {
   primary: 1,
   middle: 2,
   high: 3,
+  associate: 3,
   university: 3,
   graduate: 2,
 };
@@ -66,6 +67,7 @@ const SCHOOL_TARGET: Record<Education, Level> = {
   primary: 2,
   middle: 3,
   high: 4,
+  associate: 4,
   university: 5,
   graduate: 4,
 };

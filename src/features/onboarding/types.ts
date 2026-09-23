@@ -1,6 +1,6 @@
 export type Goal = 'exam' | 'school' | 'self' | 'fun';
 export type Exam = 'lgs' | 'tyt' | 'ayt' | 'kpss' | 'ales' | 'dgs' | 'other';
-export type Education = 'primary' | 'middle' | 'high' | 'university' | 'graduate';
+export type Education = 'primary' | 'middle' | 'high' | 'associate' | 'university' | 'graduate';
 export type Feeling = 'love' | 'ok' | 'struggle' | 'fear';
 export type DailyMinutes = 5 | 10 | 20 | 30;
 
