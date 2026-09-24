@@ -14,7 +14,7 @@ export default function CountryScreen() {
 
   return (
     <ChoiceScreen
-      progress={1 / 7}
+      progress={3 / 8}
       title="Nerede yaşıyorsun?"
       subtitle="Sınavları ve müfredatı buna göre göstereceğiz."
       choices={CHOICES}

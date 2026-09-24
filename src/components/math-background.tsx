@@ -4,9 +4,9 @@ import Animated, {
   Easing,
   useAnimatedStyle,
   useSharedValue,
-  withDelay,
   withRepeat,
   withTiming,
+  type SharedValue,
 } from 'react-native-reanimated';
 
 import { useTheme } from '@/hooks/use-theme';
@@ -41,40 +41,57 @@ const ITEMS: Item[] = [
   { text: 'θ', top: '93%', left: '18%', size: 28, rotate: 8 },
 ];
 
-/** Decorative, non-interactive layer of faint math doodles that drift gently. */
+const CYCLE_MS = 16000;
+const TAU = Math.PI * 2;
+
+/**
+ * Decorative, non-interactive layer of faint math doodles that drift gently.
+ * One looping clock drives every symbol; each derives its own motion from it.
+ * Render it once per navigator (not per screen) so stacked screens don't each run a copy.
+ */
 export function MathBackground() {
+  const clock = useSharedValue(0);
+
+  useEffect(() => {
+    clock.set(withRepeat(withTiming(1, { duration: CYCLE_MS, easing: Easing.linear }), -1, false));
+  }, [clock]);
+
   return (
     <Animated.View
       aria-hidden
       importantForAccessibility="no-hide-descendants"
       style={[StyleSheet.absoluteFill, styles.passThrough]}>
       {ITEMS.map((item, i) => (
-        <FloatingSymbol key={item.text} item={item} index={i} />
+        <FloatingSymbol key={item.text} item={item} index={i} clock={clock} />
       ))}
     </Animated.View>
   );
 }
 
-function FloatingSymbol({ item, index }: { item: Item; index: number }) {
+function FloatingSymbol({
+  item,
+  index,
+  clock,
+}: {
+  item: Item;
+  index: number;
+  clock: SharedValue<number>;
+}) {
   const theme = useTheme();
-  const offset = useSharedValue(0);
+  // Whole-number frequencies keep the loop seamless when the clock wraps from 1 to 0.
+  const speed = 1 + (index % 3);
+  const phase = index * 1.7;
 
-  useEffect(() => {
-    offset.set(
-      withDelay(
-        (index % 5) * 400,
-        withRepeat(
-          withTiming(1, { duration: 3500 + (index % 4) * 700, easing: Easing.inOut(Easing.sin) }),
-          -1,
-          true,
-        ),
-      ),
-    );
-  }, [index, offset]);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: -8 * offset.get() }, { rotate: `${item.rotate}deg` }],
-  }));
+  const animatedStyle = useAnimatedStyle(() => {
+    const angle = TAU * clock.get() * speed + phase;
+    return {
+      transform: [
+        { translateX: 6 * Math.cos(angle) },
+        { translateY: 10 * Math.sin(angle) },
+        { rotate: `${item.rotate + 4 * Math.sin(angle)}deg` },
+      ],
+    };
+  });
 
   return (
     <Animated.Text

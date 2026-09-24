@@ -25,7 +25,7 @@ export default function HomeScreen() {
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.content}>
           <ThemedText type="subtitle" style={styles.title}>
-            Merhaba 👋
+            {answers.name ? `Merhaba, ${answers.name} 👋` : 'Merhaba 👋'}
           </ThemedText>
           <ThemedText themeColor="textSecondary">
             Bugünkü hedefin: {answers.dailyMinutes ?? 10} dakika matematik.

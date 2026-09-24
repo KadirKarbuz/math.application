@@ -1,49 +1,55 @@
 import { router } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
 
+import { CurvePlotter } from '@/components/math/curve-plotter';
+import { CIRCLE, PARABOLA, ROSE, SINE } from '@/components/math/curves';
 import { OnboardingScreen } from '@/components/onboarding/onboarding-screen';
 import { ThemedText } from '@/components/themed-text';
-import { Spacing } from '@/constants/theme';
+import { MaxContentWidth, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
+/** One curve is drawn per analysis step. */
 const STEPS = [
   'Cevapların değerlendiriliyor',
   'Güçlü ve zayıf konuların belirleniyor',
   'Hedefine göre konular sıralanıyor',
   'Kişisel planın hazırlanıyor',
 ];
-const STEP_MS = 800;
+const CURVES = [CIRCLE, PARABOLA, SINE, ROSE];
 
 export default function AnalyzingScreen() {
   const theme = useTheme();
-  const [done, setDone] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => setDone((d) => d + 1), STEP_MS);
-    const finish = setTimeout(() => router.replace('/onboarding/result'), STEP_MS * (STEPS.length + 0.5));
-    return () => {
-      clearInterval(interval);
-      clearTimeout(finish);
-    };
-  }, []);
+  const { width } = useWindowDimensions();
+  const [active, setActive] = useState(0);
+  const plotSize = Math.min(Math.min(width, MaxContentWidth) - Spacing.four * 2, 260);
 
   return (
     <OnboardingScreen>
       <View style={styles.center}>
-        <ActivityIndicator size="large" color={theme.primary} />
+        <CurvePlotter
+          curves={CURVES}
+          size={plotSize}
+          drawMs={1300}
+          holdMs={350}
+          loop={false}
+          onCurveStart={setActive}
+          onDone={() => router.replace('/onboarding/result')}
+        />
         <ThemedText type="subtitle" style={styles.title}>
           Analiz ediliyor…
         </ThemedText>
         <View style={styles.steps}>
           {STEPS.map((step, index) => {
-            const isDone = index < done;
+            const isDone = index < active;
+            const isActive = index === active;
             return (
               <View key={step} style={styles.step}>
-                <ThemedText style={{ color: isDone ? theme.success : theme.textSecondary }}>
-                  {isDone ? '✓' : '○'}
+                <ThemedText
+                  style={{ color: isDone ? theme.success : isActive ? theme.primary : theme.textSecondary }}>
+                  {isDone ? '✓' : isActive ? '●' : '○'}
                 </ThemedText>
-                <ThemedText themeColor={isDone ? 'text' : 'textSecondary'}>{step}</ThemedText>
+                <ThemedText themeColor={isDone || isActive ? 'text' : 'textSecondary'}>{step}</ThemedText>
               </View>
             );
           })}

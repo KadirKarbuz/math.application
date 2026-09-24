@@ -10,7 +10,7 @@ export default function ExamScreen() {
 
   return (
     <ChoiceScreen
-      progress={3 / 7}
+      progress={5 / 8}
       title="Hangi sınava hazırlanıyorsun?"
       subtitle="Sınavın konularına göre öncelik vereceğiz."
       choices={EXAMS_BY_COUNTRY[answers.country ?? 'tr']}
@@ -21,7 +21,7 @@ export default function ExamScreen() {
         // Only one sensible answer (e.g. LGS → ortaokul): fill it in and skip the question.
         if (options.length === 1) {
           setAnswer('education', options[0].value);
-          router.push('/onboarding/feeling');
+          router.push('/onboarding/time');
         } else {
           router.push('/onboarding/education');
         }

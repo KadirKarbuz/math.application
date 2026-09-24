@@ -6,12 +6,7 @@ import { OnboardingScreen } from '@/components/onboarding/onboarding-screen';
 import { PrimaryButton } from '@/components/onboarding/primary-button';
 import { ThemedText } from '@/components/themed-text';
 import { Spacing } from '@/constants/theme';
-import {
-  FEELING_MESSAGES,
-  headline,
-  levelCaption,
-  targetCaption,
-} from '@/features/onboarding/copy';
+import { headline, levelCaption, targetCaption } from '@/features/onboarding/copy';
 import { buildResult, TOPIC_LABELS } from '@/features/onboarding/placement';
 import type { Topic } from '@/features/onboarding/types';
 import { useTheme } from '@/hooks/use-theme';
@@ -36,7 +31,7 @@ export default function ResultScreen() {
     <OnboardingScreen
       footer={<PrimaryButton title="Hadi başlayalım 🚀" disabled={saving} onPress={start} />}>
       <ThemedText type="subtitle" style={styles.title}>
-        Planın hazır! 🎉
+        {answers.name ? `Planın hazır, ${answers.name}! 🎉` : 'Planın hazır! 🎉'}
       </ThemedText>
       <ThemedText themeColor="textSecondary">{headline(result)}</ThemedText>
 
@@ -57,12 +52,6 @@ export default function ResultScreen() {
           Testte {result.total} sorudan {result.correctCount} tanesini doğru yaptın.
         </ThemedText>
       </View>
-
-      {answers.feeling && (
-        <View style={[styles.card, { backgroundColor: theme.primaryBackground }]}>
-          <ThemedText>{FEELING_MESSAGES[answers.feeling]}</ThemedText>
-        </View>
-      )}
 
       {result.strongTopics.length > 0 && (
         <TopicGroup title="💪 Güçlü olduğun konular" topics={result.strongTopics} color={theme.success} />

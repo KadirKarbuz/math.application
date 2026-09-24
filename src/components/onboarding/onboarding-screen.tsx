@@ -3,10 +3,8 @@ import type { ReactNode } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { MathBackground } from '@/components/math-background';
 import { ProgressBar } from '@/components/onboarding/progress-bar';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
 import { MaxContentWidth, Spacing } from '@/constants/theme';
 
 type Props = {
@@ -23,8 +21,8 @@ export function OnboardingScreen({ progress, title, subtitle, children, footer, 
   const hasHeader = progress !== undefined;
 
   return (
-    <ThemedView style={styles.root}>
-      <MathBackground />
+    // Transparent: the onboarding layout draws the shared background behind every screen.
+    <View style={styles.root}>
       <SafeAreaView style={styles.safeArea}>
         {hasHeader && (
           <View style={styles.header}>
@@ -59,7 +57,7 @@ export function OnboardingScreen({ progress, title, subtitle, children, footer, 
 
         {footer && <View style={styles.footer}>{footer}</View>}
       </SafeAreaView>
-    </ThemedView>
+    </View>
   );
 }
 

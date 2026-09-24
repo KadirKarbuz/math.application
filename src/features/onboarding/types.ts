@@ -15,7 +15,6 @@ export type Exam =
   | 'sat'
   | 'other';
 export type Education = 'primary' | 'middle' | 'high' | 'associate' | 'university' | 'graduate';
-export type Feeling = 'love' | 'ok' | 'struggle' | 'fear';
 export type DailyMinutes = 5 | 10 | 20 | 30;
 
 /** 1 = Temel … 5 = Uzman */
@@ -52,11 +51,13 @@ export type QuizAnswer = {
 };
 
 export type OnboardingAnswers = {
+  /** Undefined when the user skipped the question. */
+  name?: string;
+  age?: number;
   country?: Country;
   goal?: Goal;
   exam?: Exam;
   education?: Education;
-  feeling?: Feeling;
   dailyMinutes?: DailyMinutes;
 };
 

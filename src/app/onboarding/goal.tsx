@@ -17,7 +17,7 @@ export default function GoalScreen() {
 
   return (
     <ChoiceScreen
-      progress={2 / 7}
+      progress={4 / 8}
       title="Matematikte hedefin ne?"
       subtitle="Planını buna göre şekillendireceğiz."
       choices={choicesFor(answers.country ?? 'tr')}

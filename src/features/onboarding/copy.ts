@@ -1,13 +1,5 @@
 import { EXAM_LABELS, LEVEL_LABELS } from './placement';
-import type { Feeling, Level, OnboardingAnswers, PlacementResult } from './types';
-
-export const FEELING_MESSAGES: Record<Feeling, string> = {
-  love: 'Matematiği seviyorsun, bu en büyük avantajın. Şimdi bu enerjiyi doğru konulara yönlendireceğiz.',
-  ok: 'İdare eden bir ilişki, doğru bir planla kolayca sevgiye dönüşebilir.',
-  struggle:
-    'Zorlanmanın sebebi çoğu zaman yetenek değil, temeldeki küçük boşluklardır. Seninkileri bulduk.',
-  fear: 'Matematik kaygısı çok yaygın ve aşılabilir bir şey. Başarabileceğin küçük adımlarla başlayacağız.',
-};
+import type { Level, OnboardingAnswers, PlacementResult } from './types';
 
 export function levelCaption(value: number) {
   const rounded = Math.min(5, Math.max(1, Math.round(value))) as Level;

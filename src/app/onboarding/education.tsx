@@ -10,14 +10,14 @@ export default function EducationScreen() {
 
   return (
     <ChoiceScreen
-      progress={4 / 7}
+      progress={6 / 8}
       title="Şu an hangi aşamadasın?"
       subtitle="Seviye testine doğru yerden başlamamızı sağlar."
       choices={choices}
       selected={answers.education}
       onSelect={(education) => {
         setAnswer('education', education);
-        router.push('/onboarding/feeling');
+        router.push('/onboarding/time');
       }}
     />
   );
