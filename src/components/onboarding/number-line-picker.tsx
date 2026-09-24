@@ -26,15 +26,23 @@ export function NumberLinePicker({ min, max, value, onChange }: Props) {
   const theme = useTheme();
   const scrollRef = useRef<ScrollView>(null);
   const centered = useRef(false);
+  // Value we are scrolling to from code; intermediate scroll positions are ignored until we get there.
+  const target = useRef<number | null>(null);
   const [width, setWidth] = useState(0);
   const values = Array.from({ length: max - min + 1 }, (_, i) => min + i);
 
   const clamp = (n: number) => Math.min(max, Math.max(min, n));
-  const scrollTo = (n: number, animated = true) =>
+  const scrollTo = (n: number, animated = true) => {
+    target.current = animated ? clamp(n) : null;
     scrollRef.current?.scrollTo({ x: (clamp(n) - min) * TICK, animated });
+  };
 
   const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const next = clamp(min + Math.round(e.nativeEvent.contentOffset.x / TICK));
+    if (target.current !== null) {
+      if (next === target.current) target.current = null;
+      return;
+    }
     if (next !== value) onChange(next);
   };
 
@@ -70,6 +78,10 @@ export function NumberLinePicker({ min, max, value, onChange }: Props) {
           decelerationRate="fast"
           scrollEventThrottle={16}
           onScroll={onScroll}
+          onScrollBeginDrag={() => {
+            // The user took over; follow their finger again.
+            target.current = null;
+          }}
           contentContainerStyle={{ paddingHorizontal: Math.max(0, width / 2 - TICK / 2) }}>
           {values.map((n) => {
             const major = n % 5 === 0;
